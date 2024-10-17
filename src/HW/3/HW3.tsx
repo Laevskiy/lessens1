@@ -16,40 +16,44 @@ export const HW3 = () => {
     'То, что вы делаете по ночам, то и делает вас богатым. (Аль Капоне)',
   ]);
 
-  const handleChange = (event: 'НУЖНО ПРОТИПИЗИРОВАТЬ') => {
-    // setCurrentText(ЧЕГО-ТО НЕ ХВАТАЕТ);
+  const handleChange = (event: string) => {
+    setCurrentText(event);
   };
 
   const handleSave = () => {
     // ЗАСЕТАТЬ БЫ ТЕКСТ В texts И НЕ ПОТЕРЯТЬ НАПУТСТВИЕ ИЗ ПРОШЛОГО ВЕКА)
     // А ЗАТЕМ УБРАТЬ ЗА СОБОЙ В currentText
+
+    let newArray = [...texts, currentText];
+    setTexts(newArray);
+    setCurrentText('')
   };
 
   return (
-    <div id={'hw03'}>
-      {/*{currentText ? (*/}
-      {/*  <h1 id={'hw03-text'}>ЗДЕСЬ ХОТЕЛОСЬ БЫ УВИДЕТЬ ВВОДИМЫЙ ТЕКСТ</h1>*/}
-      {/*) : (*/}
-      {/*  <h1 id={'hw03-default-text'}>Здесь появится новое дело</h1> // ничего не меняем, здесь все норм*/}
-      {/*)}*/}
+      <div id={'hw03'}>
+        {currentText ? (
+            <h1 id={'hw03-text'}>{currentText}</h1>
+        ) : (
+            <h1 id={'hw03-default-text'}>Здесь появится новое дело</h1> // ничего не меняем, здесь все норм
+        )}
 
-      {/*<input id={'hw03-input'} type="text" value={currentText} onChange={handleChange} />*/}
+        <input id={'hw03-input'} type="text" value={currentText} onChange={(e)=>handleChange(e.target.value)} />
 
-      {/*<button id={'hw03-button'} onClick={() => {}}> // НЕ ХВАТАТЕТ ФУНКЦИИ*/}
-      {/*  Сохранить*/}
-      {/*</button>*/}
+        <button id={'hw03-button'} onClick={() => {handleSave()}}> // НЕ ХВАТАТЕТ ФУНКЦИИ
+          Сохранить
+        </button>
 
-      {/*<h1 style={{ marginTop: '50px' }}>СПИСОК ДЕЛ НА ДЕНЬ:</h1>*/}
+        <h1 style={{ marginTop: '50px' }}>СПИСОК ДЕЛ НА ДЕНЬ:</h1>
 
-      {/*<ol id={'hw03-tasks'}>*/}
-      {/*  {ОТРИСОВАТЬ МАССИВ.map((el, index) => {*/}
-      {/*    return (*/}
-      {/*      <li key={index} id={`hw03-task-${index}`}>*/}
-      {/*        {el}*/}
-      {/*      </li>*/}
-      {/*    );*/}
-      {/*  })}*/}
-      {/*</ol>*/}
-    </div>
+        <ol id={'hw03-tasks'}>
+          {texts.map((el, index) => {
+            return (
+                <li key={index} id={`hw03-task-${index}`}>
+                  {el}
+                </li>
+            );
+          })}
+        </ol>
+      </div>
   );
 };
